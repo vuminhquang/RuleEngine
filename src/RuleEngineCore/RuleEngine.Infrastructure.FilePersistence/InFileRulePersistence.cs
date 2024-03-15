@@ -6,12 +6,17 @@ namespace RuleEngine.Infrastructure.InMemPersistence;
 
 public class InFileRulePersistence : IRulePersistence
 {
-    private static List<Rule> _rules = new();
+    private List<Rule> _rules = [];
 
     public IEnumerable<Rule> GetRules()
     {
-        return _rules;
-        // TODO: get back the rules from temp files
+        var tempFile = Path.GetTempFileName();
+        using var reader = new StreamReader(tempFile);
+        var serializer = new XmlSerializer(typeof(List<Rule>));
+        // deserialize the rules from temp file
+        var deserializedObj = serializer.Deserialize(reader);
+        // if deserialized rules are not null, return them, otherwise return an empty list
+        return deserializedObj != null ? (List<Rule>)deserializedObj : [];
     }
 
     public void SaveRule(Rule rule)
@@ -46,7 +51,7 @@ public class InFileRulePersistence : IRulePersistence
         DumpRulesToTempFile();
     }
     
-    private static void DumpRulesToTempFile()
+    private void DumpRulesToTempFile()
     {
         var tempFile = Path.GetTempFileName();
         using var writer = new StreamWriter(tempFile);
