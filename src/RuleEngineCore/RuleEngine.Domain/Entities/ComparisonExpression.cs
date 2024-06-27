@@ -17,6 +17,23 @@ public class ComparisonExpression : Expression
 
         if (leftValue is not IComparable leftComparable || rightValue is not IComparable rightComparable)
             throw new ArgumentException("Field values are not comparable.");
+        
+        // check if leftValue and rightValue are comparable to each other
+        if (leftComparable.GetType() != rightComparable.GetType())
+        {
+            switch (leftComparable)
+            {
+                case int when rightComparable is double:
+                    leftComparable = Convert.ToDouble(leftComparable);
+                    break;
+                case double when rightComparable is int:
+                    rightComparable = Convert.ToDouble(rightComparable);
+                    break;
+                default:
+                    throw new ArgumentException($"Field values are not comparable. Left {leftValue} Right {rightValue}");
+            }
+        }
+        
         var comparisonResult = leftComparable.CompareTo(rightComparable);
 
         return Operator switch

@@ -29,29 +29,44 @@ public partial class Examples
         // Define a collection of fields
         var fields = new List<Field>
         {
-            new() { Name = "Numbers", Value = new List<int> { 1, 2, 3, 4, 5 } }
+            new() { Name = "Value1", Value = 5 },
+            new() { Name = "Value2", Value = 15 },
+            new() { Name = "Value3", Value = 25 },
+            new() { Name = "Value4", Value = 35 }
         };
 
-        // Define a CollectionExpression to extract the list of numbers
-        var collectionExpression = new FieldExpression { FieldName = "Numbers" };
+        // Define a CollectionExpression to extract the list of field values
+        var collectionExpression = new ConstantExpression
+        {
+            Value = new ConstantExpressionValue { Value = fields.Select(f => f.Value).ToList() }
+        };
 
-        // Define an ItemExpression to multiply each item by 2
-        var itemExpression = new ArithmeticExpression
+        // Define a condition to choose fields (e.g., value > 10)
+        var conditionToChooseField = new ComparisonExpression
+        {
+            LeftExpression = new FieldExpression { FieldName = "CurrentItem" },
+            RightExpression = new ConstantExpression { Value = new ConstantExpressionValue { Value = 10 } },
+            Operator = OperatorType.GreaterThan
+        };
+
+        // Define an action to apply on chosen fields (e.g., multiply by 2)
+        var actionOnChosenField = new ArithmeticExpression
         {
             LeftExpression = new FieldExpression { FieldName = "CurrentItem" },
             RightExpression = new ConstantExpression { Value = new ConstantExpressionValue { Value = 2 } },
             Operator = ArithmeticOperatorType.Multiply
         };
 
-        // Define the ForEachExpression
+        // Define the ForEachExpression to filter and apply the action
         var forEachExpression = new ForEachExpression
         {
             CollectionExpression = collectionExpression,
-            ItemExpression = itemExpression
+            ConditionExpression = conditionToChooseField,
+            ActionExpression = actionOnChosenField
         };
 
         // Evaluate the ForEachExpression
-        var result = (List<object>)await forEachExpression.EvaluateAsync(fields);
-        Console.WriteLine("ForEach result: " + string.Join(", ", result)); // Output: ForEach result: 2, 4, 6, 8, 10
+        var result = (List<object>)await forEachExpression.EvaluateAsync(new List<Field>());
+        Console.WriteLine("ForEach result: " + string.Join(", ", result)); // Output: ForEach result: 30, 50, 70
     }
 }

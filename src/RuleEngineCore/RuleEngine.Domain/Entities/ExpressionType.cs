@@ -6,5 +6,8 @@ public enum ExpressionType
     Field,
     Arithmetic,
     Comparison,
-    Logical
+    Logical,
+    ForEach,
+    FilteredCollection,
+    Switch
 }

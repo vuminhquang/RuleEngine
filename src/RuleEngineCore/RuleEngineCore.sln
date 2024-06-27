@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleEngine.Infrastructure.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleEngine.Infrastructure.FilePersistence", "RuleEngine.Infrastructure.FilePersistence\RuleEngine.Infrastructure.FilePersistence.csproj", "{CD78BEFA-F6B9-4018-A67B-83CDCA4DEABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleEngine.Domain.Ext.RemoteFieldExpr", "RuleEngine.Domain.Ext.RemoteFieldExpr\RuleEngine.Domain.Ext.RemoteFieldExpr.csproj", "{F122581C-1762-499B-8374-4115637A2907}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleEngine.Domain.Ext", "RuleEngine.Domain.Ext\RuleEngine.Domain.Ext.csproj", "{F122581C-1762-499B-8374-4115637A2907}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleEngine.Infrastructure.Ext.RemoteFieldExpr", "RuleEngine.Infrastructure.Ext.RemoteFieldExpr\RuleEngine.Infrastructure.Ext.RemoteFieldExpr.csproj", "{A70E58B1-9846-40FC-B9BA-91D53AA4B329}"
 EndProject

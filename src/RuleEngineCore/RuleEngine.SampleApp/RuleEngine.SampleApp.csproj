@@ -10,7 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RuleEngine.Application\RuleEngine.Application.csproj" />
-      <ProjectReference Include="..\RuleEngine.Domain.Ext.RemoteFieldExpr\RuleEngine.Domain.Ext.RemoteFieldExpr.csproj" />
+      <ProjectReference Include="..\RuleEngine.Domain.Ext\RuleEngine.Domain.Ext.csproj" />
       <ProjectReference Include="..\RuleEngine.Infrastructure.EF\RuleEngine.Infrastructure.EF.csproj" />
       <ProjectReference Include="..\RuleEngine.Infrastructure.Ext.RemoteFieldExpr\RuleEngine.Infrastructure.Ext.RemoteFieldExpr.csproj" />
     </ItemGroup>

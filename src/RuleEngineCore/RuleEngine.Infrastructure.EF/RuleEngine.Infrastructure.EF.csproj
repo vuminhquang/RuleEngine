@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\RuleEngine.Domain.Ext\RuleEngine.Domain.Ext.csproj" />
       <ProjectReference Include="..\RuleEngine.Domain\RuleEngine.Domain.csproj" />
     </ItemGroup>
 
