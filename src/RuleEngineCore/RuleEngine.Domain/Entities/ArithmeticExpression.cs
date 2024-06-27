@@ -9,7 +9,7 @@ public class ArithmeticExpression : Expression
     public int RightExpressionId { get; set; }
     public Expression RightExpression { get; set; }
     public ArithmeticOperatorType Operator { get; set; }
-    
+
     public override object Evaluate(IList<Field> fields)
     {
         var leftValue = LeftExpression.Evaluate(fields);
@@ -20,18 +20,14 @@ public class ArithmeticExpression : Expression
         var leftNum = Convert.ToDouble(leftConvertible);
         var rightNum = Convert.ToDouble(rightConvertible);
 
-        switch (Operator)
+        return Operator switch
         {
-            case ArithmeticOperatorType.Add:
-                return leftNum + rightNum;
-            case ArithmeticOperatorType.Subtract:
-                return leftNum - rightNum;
-            case ArithmeticOperatorType.Multiply:
-                return leftNum * rightNum;
-            case ArithmeticOperatorType.Divide:
-                return leftNum / rightNum;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            ArithmeticOperatorType.Add => leftNum + rightNum,
+            ArithmeticOperatorType.Subtract => leftNum - rightNum,
+            ArithmeticOperatorType.Multiply => leftNum * rightNum,
+            ArithmeticOperatorType.Divide => leftNum / rightNum,
+            _ => throw new ArgumentOutOfRangeException(nameof(fields),
+                $"Invalid arithmetic operator. The requested operator is {Operator}")
+        };
     }
 }

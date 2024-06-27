@@ -21,13 +21,33 @@ public class RuleEngine : IRuleEngine
         }
     }
 
-    private static bool EvaluateCondition(Expression condition, IEnumerable<Field> fields)
+    public async Task ExecuteRulesAsync(IEnumerable<Field> fields, IEnumerable<Rule> rules)
     {
-        var result = condition.Evaluate(fields.ToList());
+        var listFields = fields.ToList();
+
+        foreach (var rule in rules)
+        {
+            var conditionResult = await EvaluateConditionAsync(rule.Condition, listFields);
+            if (conditionResult)
+            {
+                ApplyOperations(rule.Operations, listFields);
+            }
+        }
+    }
+
+    private static bool EvaluateCondition(Expression condition, IList<Field> fields)
+    {
+        var result = condition.Evaluate(fields);
         return result is bool boolResult ? boolResult : Convert.ToBoolean(result);
     }
 
-    private static void ApplyOperations(IEnumerable<Operation> operations, IEnumerable<Field> fields)
+    private static async Task<bool> EvaluateConditionAsync(Expression condition, IList<Field> fields)
+    {
+        var result = await condition.EvaluateAsync(fields);
+        return result is bool boolResult ? boolResult : Convert.ToBoolean(result);
+    }
+
+    private static void ApplyOperations(IEnumerable<Operation> operations, IList<Field> fields)
     {
         var fieldsDictionary = fields.ToDictionary(f => f.Name, f => f);
         foreach (var operation in operations)

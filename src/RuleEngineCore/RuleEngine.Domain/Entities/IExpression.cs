@@ -1,9 +1,9 @@
-﻿using RuleEngine.Abstraction;
-using RuleEngine.Domain;
+﻿using RuleEngine.Domain;
 
 namespace RuleEngineExpressionVersion.Expression;
 
 public interface IExpression
 {
-    public object Evaluate(IList<Field> fields);
+    object Evaluate(IList<Field> fields);
+    Task<object> EvaluateAsync(IList<Field> fields);
 }
